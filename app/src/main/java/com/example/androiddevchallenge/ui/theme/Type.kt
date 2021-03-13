@@ -17,16 +17,69 @@ package com.example.androiddevchallenge.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontSynthesis
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.androiddevchallenge.R
+
+val montserratFamily = FontFamily(
+    Font(
+        resId = R.font.montserrat_extrabold,
+        weight = FontWeight.ExtraBold
+    ),
+    Font(
+        resId = R.font.montserrat_semibold,
+        weight = FontWeight.SemiBold
+    ),
+    Font(
+        resId = R.font.montserrat_medium,
+        weight = FontWeight.Medium
+    ),
+    Font(
+        resId = R.font.montserrat_light,
+        weight = FontWeight.Light
+    ),
+    Font(
+        resId = R.font.montserrat_bold,
+        weight = FontWeight.Bold
+    ),
+)
 
 // Set of Material typography styles to start with
 val typography = Typography(
+    defaultFontFamily = montserratFamily,
+    h1 = TextStyle(
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 40.sp,
+        letterSpacing = (1.25).sp
+    ),
+    h2 = TextStyle(
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 36.sp,
+        letterSpacing = 0.sp
+    ),
+    h3 = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 13.sp,
+        letterSpacing = 0.sp
+    ),
+    subtitle1 = TextStyle(
+        fontWeight = FontWeight.Medium,
+        fontSize = 15.sp,
+        letterSpacing = 0.sp
+    ),
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontWeight = FontWeight.Light,
+        fontSize = 13.sp,
+        letterSpacing = 0.sp
+    ),
+    button = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 13.sp,
+        fontFeatureSettings = """text-transform: uppercase""",
+        letterSpacing = (1.25).sp,
     )
         /* Other default text styles to override
     button = TextStyle(
