@@ -18,14 +18,29 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.ui.navigation.Navigator
+import com.example.androiddevchallenge.ui.navigation.Screen
+import com.example.androiddevchallenge.ui.screens.Home
+import com.example.androiddevchallenge.ui.screens.LogIn
+import com.example.androiddevchallenge.ui.screens.Welcome
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
+    @ExperimentalComposeUiApi
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -37,13 +52,38 @@ class MainActivity : AppCompatActivity() {
 }
 
 // Start building your app here!
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    val navigator by rememberSaveable { mutableStateOf(Navigator(Screen.Welcome)) }
+    val screen by navigator.currentScreen.observeAsState()
+    when (screen) {
+        Screen.Welcome -> AnimatedContent(screen == Screen.Welcome, initiallyVisible = true) { Welcome{ navigator.navigateTo(Screen.LogIn) } }
+        Screen.LogIn -> AnimatedContent(screen == Screen.LogIn) { LogIn{ navigator.navigateTo(Screen.Home) } }
+        Screen.Home -> AnimatedContent(screen == Screen.Home) { Home() }
     }
 }
 
+@ExperimentalAnimationApi
+@Composable
+fun AnimatedContent(
+    enabled: Boolean,
+    initiallyVisible: Boolean = false,
+    content: @Composable () -> Unit
+) {
+    AnimatedVisibility(
+        visible = enabled,
+        modifier = Modifier.fillMaxSize(),
+        enter = slideInHorizontally(initialOffsetX = { it }),
+        exit = slideOutHorizontally(targetOffsetX = { it }),
+        content = { content() },
+        initiallyVisible = initiallyVisible
+    )
+}
+
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
@@ -52,6 +92,8 @@ fun LightPreview() {
     }
 }
 
+@ExperimentalAnimationApi
+@ExperimentalComposeUiApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {

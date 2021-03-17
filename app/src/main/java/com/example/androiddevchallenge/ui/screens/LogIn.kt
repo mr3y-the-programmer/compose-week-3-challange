@@ -34,7 +34,7 @@ import com.example.androiddevchallenge.ui.theme.white
 
 @ExperimentalComposeUiApi
 @Composable
-fun LogIn() {
+fun LogIn(onComplete: () -> Unit) {
     Box(modifier = Modifier
         .fillMaxSize()
         .background(color = MaterialTheme.colors.surface)) {
@@ -81,11 +81,11 @@ fun LogIn() {
                 label = "Password",
                 contentDescription = "Enter your password",
                 visualTransformation = PasswordVisualTransformation(),
-                onComplete = { /*TODO: move to home screen*/ }
+                onComplete = { onComplete() }
             )
             Spacer(modifier = Modifier.height(16.dp))
             TextButton(
-                onClick = { /*TODO*/ },
+                onClick = { onComplete() },
                 modifier = Modifier
                     .height(48.dp)
                     .fillMaxWidth(0.9f),
@@ -163,7 +163,7 @@ private fun LogInTextField(
 @Composable
 fun LogInPreview() {
     MyTheme {
-        LogIn()
+        LogIn{}
     }
 }
 
@@ -172,6 +172,6 @@ fun LogInPreview() {
 @Composable
 fun LogInPreviewDark() {
     MyTheme(darkTheme = true) {
-        LogIn()
+        LogIn{}
     }
 }

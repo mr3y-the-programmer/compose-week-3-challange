@@ -29,7 +29,7 @@ import com.example.androiddevchallenge.ui.theme.yellow
 
 
 @Composable
-fun Welcome() {
+fun Welcome(onComplete: () -> Unit) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -75,7 +75,7 @@ fun Welcome() {
             val shape = MaterialTheme.shapes.large // based on the mockup, button use large shape
             Spacer(modifier = Modifier.padding(horizontal = 8.dp))
             TextButton(
-                onClick = { /*TODO*/ },
+                onClick = { onComplete() },
                 modifier = modifier,
                 shape = shape,
                 colors = ButtonDefaults.buttonColors(
@@ -90,7 +90,7 @@ fun Welcome() {
             }
             Spacer(modifier = Modifier.padding(horizontal = 4.dp))
             OutlinedButton(
-                onClick = { /*TODO*/ },
+                onClick = { onComplete() },
                 modifier = modifier,
                 shape = shape,
                 colors = ButtonDefaults.outlinedButtonColors(
@@ -113,7 +113,7 @@ fun Welcome() {
 @Composable
 fun WelcomePreview() {
     MyTheme {
-        Welcome()
+        Welcome{}
     }
 }
 
@@ -121,6 +121,6 @@ fun WelcomePreview() {
 @Composable
 fun WelcomePreviewDark() {
     MyTheme(darkTheme = true) {
-        Welcome()
+        Welcome{}
     }
 }
