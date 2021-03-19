@@ -31,6 +31,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import com.example.androiddevchallenge.ui.navigation.Navigator
 import com.example.androiddevchallenge.ui.navigation.Screen
 import com.example.androiddevchallenge.ui.screens.Home
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // request drawing behind system bars
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             MyTheme {
                 MyApp()
