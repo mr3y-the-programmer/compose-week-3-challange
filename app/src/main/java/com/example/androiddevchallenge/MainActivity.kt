@@ -62,8 +62,8 @@ fun MyApp() {
     val navigator by rememberSaveable { mutableStateOf(Navigator(Screen.Welcome)) }
     val screen by navigator.currentScreen.observeAsState()
     when (screen) {
-        Screen.Welcome -> AnimatedContent(screen == Screen.Welcome, initiallyVisible = true) { Welcome{ navigator.navigateTo(Screen.LogIn) } }
-        Screen.LogIn -> AnimatedContent(screen == Screen.LogIn) { LogIn{ navigator.navigateTo(Screen.Home) } }
+        Screen.Welcome -> AnimatedContent(screen == Screen.Welcome, initiallyVisible = true) { Welcome { navigator.navigateTo(Screen.LogIn) } }
+        Screen.LogIn -> AnimatedContent(screen == Screen.LogIn) { LogIn { navigator.navigateTo(Screen.Home) } }
         Screen.Home -> AnimatedContent(screen == Screen.Home) { Home() }
     }
 }
